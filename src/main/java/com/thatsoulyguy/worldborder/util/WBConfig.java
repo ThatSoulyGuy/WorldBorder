@@ -38,6 +38,28 @@ public class WBConfig
         }
     }
 
+    public void Reload()
+    {
+        configFile = new File(WorldBorder.Instance.getDataFolder(), path);
+
+        if (!configFile.exists())
+        {
+            configFile.getParentFile().mkdirs();
+            WorldBorder.Instance.saveResource(path, false);
+        }
+
+        config = new YamlConfiguration();
+
+        try
+        {
+            config.load(configFile);
+        }
+        catch (IOException | InvalidConfigurationException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     public void SetValue(String path, Object value)
     {
         config.set(path, value);

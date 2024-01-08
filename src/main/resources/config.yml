@@ -1,0 +1,6 @@
+
+
+#Worldborder field
+worldborder:
+  #Size of the worldborder
+  size: 120

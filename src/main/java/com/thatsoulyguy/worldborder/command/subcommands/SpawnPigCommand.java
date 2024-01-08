@@ -3,10 +3,8 @@ package com.thatsoulyguy.worldborder.command.subcommands;
 import com.thatsoulyguy.worldborder.WorldBorder;
 import com.thatsoulyguy.worldborder.command.WBCommand;
 import com.thatsoulyguy.worldborder.command.WBCommandRegistration;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
@@ -26,10 +24,12 @@ public class SpawnPigCommand extends WBCommand
         pig.setSaddle(true);
         pig.setGlowing(true);
 
-        WorldBorder.Instance.defaultConfig.SetValue("worldborderpig.entity", pig.getUniqueId().toString());
-        WorldBorder.Instance.defaultConfig.SetValue("worldborderpig.world", pig.getWorld().getName());
+        WorldBorder.Instance.pigConfig.SetValue("worldborderpig.entity", pig.getUniqueId().toString());
+        WorldBorder.Instance.pigConfig.SetValue("worldborderpig.world", pig.getWorld().getName());
 
         WorldBorder.Instance.worldBorderPig = pig;
+
+        player.sendMessage(ChatColor.GREEN + "Successfully summoned WorldBorder Pig");
 
         return 0;
     }

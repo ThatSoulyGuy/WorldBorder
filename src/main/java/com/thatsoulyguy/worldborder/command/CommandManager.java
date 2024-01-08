@@ -1,5 +1,7 @@
 package com.thatsoulyguy.worldborder.command;
 
+import com.thatsoulyguy.worldborder.command.subcommands.AuthorCommand;
+import com.thatsoulyguy.worldborder.command.subcommands.ReloadCommand;
 import com.thatsoulyguy.worldborder.command.subcommands.SpawnPigCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -18,6 +20,8 @@ public class CommandManager implements CommandExecutor
     public static void Initialize()
     {
         RegisterCommand(new SpawnPigCommand());
+        RegisterCommand(new ReloadCommand());
+        RegisterCommand(new AuthorCommand());
     }
 
     public static void RegisterCommand(WBCommand command)
@@ -56,12 +60,12 @@ public class CommandManager implements CommandExecutor
             }
             else
             {
-                sender.sendMessage("---------------------------");
+                sender.sendMessage(ChatColor.YELLOW + "---------------------------");
 
                 for(WBCommand command : registeredCommands.values())
-                    sender.sendMessage("/" + command.name + " - " + command.syntax + ", " + command.description);
+                    sender.sendMessage( ChatColor.GREEN + command.name + " - " + command.syntax + ", " + command.description);
 
-                sender.sendMessage("---------------------------");
+                sender.sendMessage(ChatColor.YELLOW + "---------------------------");
 
                 return true;
             }

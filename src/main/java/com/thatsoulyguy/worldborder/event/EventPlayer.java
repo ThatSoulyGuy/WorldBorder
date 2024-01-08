@@ -17,7 +17,7 @@ public class EventPlayer implements Listener
         if (event.getPlayer().getName().equals("0x0000FFFD"))
             event.getPlayer().sendMessage(ChatColor.BLUE + "This server is running BorderSMP Plugin");
 
-        String worldName = (String) WorldBorder.Instance.defaultConfig.GetValue("worldborderpig.world");
+        String worldName = (String) WorldBorder.Instance.pigConfig.GetValue("worldborderpig.world");
 
         if(worldName != null)
         {
@@ -25,7 +25,7 @@ public class EventPlayer implements Listener
 
             if (world != null)
             {
-                String pigUUID = (String) WorldBorder.Instance.defaultConfig.GetValue("worldborderpig.entity");
+                String pigUUID = (String) WorldBorder.Instance.pigConfig.GetValue("worldborderpig.entity");
                 Pig pig = (Pig) WorldBorder.Instance.GetEntityByUUID(pigUUID, world);
 
                 if (pig != null)

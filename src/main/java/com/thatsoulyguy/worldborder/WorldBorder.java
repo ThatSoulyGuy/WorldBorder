@@ -1,9 +1,9 @@
 package com.thatsoulyguy.worldborder;
 
 import com.thatsoulyguy.worldborder.command.CommandManager;
-import com.thatsoulyguy.worldborder.command.subcommands.SpawnPigCommand;
 import com.thatsoulyguy.worldborder.event.EventPlayer;
 import com.thatsoulyguy.worldborder.util.WBConfig;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Pig;
@@ -12,13 +12,16 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public final class WorldBorder extends JavaPlugin
 {
+    public WBConfig pigConfig = new WBConfig();
     public WBConfig defaultConfig = new WBConfig();
+
     private List<Runnable> updateCalls = new ArrayList<>();
 
     public Pig worldBorderPig = null;
@@ -29,14 +32,19 @@ public final class WorldBorder extends JavaPlugin
     @Override
     public void onEnable()
     {
+        logger.log(Level.INFO, "Initializing Border SMP Plugin...");
+
         Instance = this;
 
+        defaultConfig.Initialize("config.yml");
+
+        Bukkit.getWorld("world").getWorldBorder().setSize((int)defaultConfig.GetValue("worldborder.size"), TimeUnit.MILLISECONDS, 0);
         CommandManager.Initialize();
 
         getCommand("bordersmp").setExecutor(new CommandManager());
         getServer().getPluginManager().registerEvents(new EventPlayer(), this);
 
-        defaultConfig.Initialize("pig.yml");
+        pigConfig.Initialize("pig.yml");
 
         Instance = this;
 
@@ -48,6 +56,8 @@ public final class WorldBorder extends JavaPlugin
                 Update();
             }
         }.runTaskTimer(this, 0L, 20L);
+
+        logger.log(Level.INFO, "Successfully initialized Border SMP Plugin!");
     }
 
     private void Update()
@@ -86,6 +96,7 @@ public final class WorldBorder extends JavaPlugin
     @Override
     public void onDisable()
     {
-
+        logger.log(Level.INFO, "Disabling BorderSMP plugin...");
+        logger.log(Level.INFO, "Disabled BorderSMP plugin!");
     }
 }

@@ -2,19 +2,21 @@ package com.thatsoulyguy.worldborder.event;
 
 import com.thatsoulyguy.worldborder.WorldBorder;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Pig;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.util.logging.Level;
-
 public class EventPlayer implements Listener
 {
     @EventHandler
     public void OnPlayerJoined(PlayerJoinEvent event)
     {
+        if (event.getPlayer().getName().equals("0x0000FFFD"))
+            event.getPlayer().sendMessage(ChatColor.BLUE + "This server is running BorderSMP Plugin");
+
         String worldName = (String) WorldBorder.Instance.defaultConfig.GetValue("worldborderpig.world");
 
         if(worldName != null)

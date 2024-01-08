@@ -1,9 +1,9 @@
 package com.thatsoulyguy.worldborder;
 
-import com.thatsoulyguy.worldborder.command.SpawnPig;
+import com.thatsoulyguy.worldborder.command.CommandManager;
+import com.thatsoulyguy.worldborder.command.subcommands.SpawnPigCommand;
 import com.thatsoulyguy.worldborder.event.EventPlayer;
 import com.thatsoulyguy.worldborder.util.WBConfig;
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Pig;
@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public final class WorldBorder extends JavaPlugin
@@ -32,7 +31,9 @@ public final class WorldBorder extends JavaPlugin
     {
         Instance = this;
 
-        Objects.requireNonNull(getCommand("spawnpig")).setExecutor(new SpawnPig());
+        CommandManager.Initialize();
+
+        getCommand("bordersmp").setExecutor(new CommandManager());
         getServer().getPluginManager().registerEvents(new EventPlayer(), this);
 
         defaultConfig.Initialize("pig.yml");
